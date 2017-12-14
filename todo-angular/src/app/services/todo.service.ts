@@ -16,4 +16,26 @@ export class ToDoService{
         
     }
 
+    createToDo(todo: ToDo){
+        return this._http.post(`${this.todoUrl}`, todo);
+    }
+
+    getToDos(){
+        return this._http.get(this.todoUrl).map(res => {
+            return res['data'].docs as ToDo[];
+        })
+    }
+
+    editToDo(todo: ToDo){
+        let editUrl = `${this.todoUrl}`
+        return this._http.put(editUrl, todo);
+    }
+
+    deleteToDo(id: string){
+        let deleteUrl = `${this.todoUrl}/${id}`
+        return this._http.delete(deleteUrl).map(res=>{
+            return res;
+        })
+}
+
 }
